@@ -10,22 +10,54 @@ inquirer.prompt([
     {
         type: 'input',
         name: 'username',
-        message: 'What is your GitHub username?'
+        message: 'What is your GitHub username? (Required)',
+        validate: usernameInput => {
+            if(usernameInput) {
+                return true;
+            } else {
+                console.log('Please enter GitHub username');
+                return false;
+            }
+        }
     },
     {
         type: 'input',
         name: 'email',
-        message: 'What is your email address?'
+        message: 'What is your email address? (Required)',
+        validate: emailInput => {
+            if(emailInput) {
+                return true;
+            } else {
+                console.log('Please enter valid email address');
+                return false;
+            }
+        }
     },
     {
         type: 'input',
         name: 'title',
-        message: "What is your project's title?"
+        message: "What is your project's title? (Required)",
+        validate: titleInput => {
+            if(titleInput) {
+                return true;
+            } else {
+                console.log('Please enter the title for your Project');
+                return false;
+            }
+        }
     },
     {
         type: 'input',
         name: 'description',
-        message: 'Please write a short description of your project'
+        message: 'Please write a short description of your project (Required)',
+        validate: descriptionInput => {
+            if(descriptionInput) {
+                return true;
+            } else {
+                console.log('Enter some description of project');
+                return false;
+            }
+        }
     },
     {
         type: 'list',
@@ -64,15 +96,14 @@ inquirer.prompt([
     }
 ]);
 
-
-const promptUser = () => {
-    return inquirer
-    .prompt(questions);
-};
-
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-
+    fs.writeFile(fileName, data, err => {
+        if(err) {
+            return console.log(err);
+        }
+        console.log('Success! Your README.md file has been generated')
+    });
 }
 
 // TODO: Create a function to initialize app
