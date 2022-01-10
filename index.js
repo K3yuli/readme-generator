@@ -1,11 +1,13 @@
 // TODO: Include packages needed for this application
 const fs = require('fs');
 const inquirer = require('inquirer');
-const util = require('utils');
-const generateMd = require('./utils/generateMarkdown');
+const util = require('util');
+const generateMarkdown = require('./utils/generateMarkdown');
+const writeFileAsync = util.promisify(fs.writeFile);
 
 // TODO: Create an array of questions for user input
-const questions = [
+function promptUser(){
+    return inquirer.prompt([
     {
         type: 'input',
         name: 'username',
@@ -75,7 +77,7 @@ const questions = [
         type: 'input',
         name: 'installation',
         message: 'What command should be run to install dependencies?',
-        default: 'npm i'
+        default: 'npm install inquirer'
     },
     {
         type: 'input',
@@ -91,38 +93,24 @@ const questions = [
     {
         type: 'input',
         name: 'contribute',
-        message: 'What does the user need to know about contributing to the repository?'
+        message: 'Who contributed to the repository?'
     }
-];
-
+]);
+}
 
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {
-    fs.writeFile(fileName, data, err => {
-        if(err) {
-            return console.log(err);
-        }
-        console.log('Success! Your README.md file has been generated')
-    });
+async function init() {
+    try {
+        const answers = await promptUser();
+        const generateContent = generateMarkdown(answers)
+
+        await writeFileAsync('README.md', generateContent)
+        console.log('Success! README has been generated. Please check your directory.')
+    } catch(err) {
+        console.log(err);
+    }
 }
-
-// TODO: Create a function to initialize app
-async function init () {
-    try{
-        const userResponses = await inquirer.prompt(questions);
-        console.log("Your responses:", userResponses);
-        console.log("Thank you for your responses!")
-
-        const markdown = generateMd(userResponses, userInfo);
-        console.log(markdown);
-
-        await writeFileAsync('ExampleREADME.md', markdown);
-    }
-    catch(error) {
-        console.log(error);
-    }
-};
 
 // Function call to initialize app
 init();
