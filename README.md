@@ -1,12 +1,18 @@
 # readme-generator
 
-## User Story
+## Table of Contents
+- [User Story](#user-story)
+- [Acceptance Criteria](#acceptance-criteria)
+- [Demonstration](#demonstration)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Technologies](#technologies)
+- [Questions](#questions)
+
+## <a name="user-story"></a>User Story
 As a developer I want a README generator.  So that I can quickly create a professional README for a new project.
 
-## Table of Contents
-
-
-## Acceptance Criteria
+## <a name="acceptance-criteria"></a>Acceptance Criteria
 GIVEN a command-line application that accepts user input
 <br>
 WHEN I am prompted for information about my application repository
@@ -37,15 +43,16 @@ WHEN I click on the links in the Table of Contents
 <br>
 THEN I am taken to the corresponding section of the README
 
-## Demonstration
+## <a name="demonstration"></a>Demonstration
 
-## Installation
+## <a name ="installation"></a>Installation
 
-## Usage
+## <a name="usage"></a>Usage
 
-## Technologies
+## <a name="technologies"></a>Technologies
+- [Node.js](https://nodejs.org/en/)
+- [Inquirer.js](https://www.npmjs.com/package/inquirer)
 
-## License
-
-## Questions
+## <a name="questions"></a>Questions
+- My [GitHub](https://github.com/K3yuli)
 

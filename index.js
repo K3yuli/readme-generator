@@ -1,12 +1,11 @@
 // TODO: Include packages needed for this application
 const fs = require('fs');
 const inquirer = require('inquirer');
-const util = require('util');
+const util = require('utils');
 const generateMd = require('./utils/generateMarkdown');
 
 // TODO: Create an array of questions for user input
-
-inquirer.prompt([
+const questions = [
     {
         type: 'input',
         name: 'username',
@@ -62,11 +61,11 @@ inquirer.prompt([
     {
         type: 'list',
         name: 'license',
-        message: 'What license should your project have?',
+        message: 'What license is best for your project?',
         choices: [
             'MIT',
             'GPL v2',
-            'Apache license 2.0',
+            'Apache License 2.0',
             'BSD 3-clause',
             'ISC',
             'Unlicense'
@@ -76,13 +75,13 @@ inquirer.prompt([
         type: 'input',
         name: 'installation',
         message: 'What command should be run to install dependencies?',
-        default: ''
+        default: 'npm i'
     },
     {
         type: 'input',
         name: 'tests',
         message: 'What command should be run to run tests?',
-        default: ''
+        default: 'npm run test'
     },
     {
         type: 'input',
@@ -94,7 +93,9 @@ inquirer.prompt([
         name: 'contribute',
         message: 'What does the user need to know about contributing to the repository?'
     }
-]);
+];
+
+
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
@@ -107,7 +108,21 @@ function writeToFile(fileName, data) {
 }
 
 // TODO: Create a function to initialize app
-function init() {}
+async function init () {
+    try{
+        const userResponses = await inquirer.prompt(questions);
+        console.log("Your responses:", userResponses);
+        console.log("Thank you for your responses!")
+
+        const markdown = generateMd(userResponses, userInfo);
+        console.log(markdown);
+
+        await writeFileAsync('ExampleREADME.md', markdown);
+    }
+    catch(error) {
+        console.log(error);
+    }
+};
 
 // Function call to initialize app
 init();
